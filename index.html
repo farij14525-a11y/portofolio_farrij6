@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farrij | Creative Developer & Tech Explorer — 0-G Experience</title>
+    <meta name="description"
+        content="Portofolio digital interaktif mutakhir dengan konsep Anti-Gravitasi oleh Farid / Farrij. Menampilkan proyek inovatif, eksperimen interaktif, dan rekam jejak profesional." />
+
+    <!-- Favicon / Brand Icon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+    <!-- Google Fonts: Outfit, Plus Jakarta Sans, Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Font Awesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body data-theme-accent="cyan">
+
+    <!-- Custom Zero-Gravity Glowing Cursor Follower -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Dynamic Cursor Spotlight Torch -->
+    <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+    <!-- Interactive Anti-Gravity Canvas Background -->
+    <canvas id="antiGravityCanvas"></canvas>
+
+    <!-- Ambient Glowing Neon Nebula Orbs -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+    <div class="cyber-grid-overlay"></div>
+
+    <!-- TOP HUD SYSTEM TELEMETRY STRIP -->
+    <div class="telemetry-bar">
+        <div class="container telemetry-flex">
+            <div class="telemetry-item"><span class="radar-ping-sm"></span> <span>PROTOCOL: ANTI-GRAVITY V2.4</span>
+            </div>
+            <div class="telemetry-item live-fps-counter"><i class="fa-solid fa-gauge-high text-cyan"></i> <span
+                    id="fpsCount">60 FPS</span> · CORE ACTIVE</div>
+            <div class="telemetry-item telemetry-orbit-wrap">
+                <i class="fa-solid fa-location-crosshairs text-cyan"></i>
+                <span id="telemetryLocation">ORBIT: DETECTING...</span>
+                <a href="visitors.html" class="telemetry-log-link" title="Buka Dashboard Radar Pengunjung"><i class="fa-solid fa-chart-line"></i> Log Radar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="brand-logo" id="brandLogo">
+                <span class="logo-orb"><i class="fa-solid fa-atom"></i></span>
+                <span class="logo-text">FARRIJ<span class="highlight">.PSH</span></span>
+                <span class="zero-g-badge">0-G PROTOCOL</span>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link"><i class="fa-regular fa-user"></i> <span>Profil</span></a>
+                <a href="#skills" class="nav-link"><i class="fa-solid fa-layer-group"></i> <span>Keahlian</span></a>
+                <a href="#showcase" class="nav-link"><i class="fa-solid fa-rocket"></i> <span>Karya</span></a>
+                <a href="#lab" class="nav-link"><i class="fa-solid fa-flask text-cyan"></i> <span>0-G Lab</span></a>
+                <a href="#vault" class="nav-link"><i class="fa-solid fa-award"></i> <span>Prestasi</span></a>
+                <a href="#journey" class="nav-link"><i class="fa-solid fa-timeline"></i> <span>Garis Waktu</span></a>
+                <a href="#contact" class="nav-link"><i class="fa-regular fa-paper-plane"></i> <span>Kontak</span></a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Theme Accent Color Switcher (8 Pilihan Warna: 4 Atas, 4 Bawah) -->
+                <div class="theme-accent-picker" title="Ubah Warna Tema Nebula">
+                    <!-- Baris Atas -->
+                    <button class="accent-btn cyan-dot active" data-accent="cyan" aria-label="Tema Cyan" title="Cyan"></button>
+                    <button class="accent-btn purple-dot" data-accent="purple" aria-label="Tema Ungu" title="Ungu"></button>
+                    <button class="accent-btn gold-dot" data-accent="gold" aria-label="Tema Emas" title="Emas"></button>
+                    <button class="accent-btn emerald-dot" data-accent="emerald" aria-label="Tema Emerald" title="Emerald"></button>
+                    <!-- Baris Bawah -->
+                    <button class="accent-btn neon-green-dot" data-accent="neon-green" aria-label="Tema Neon Green" title="Neon Green"></button>
+                    <button class="accent-btn orange-dot" data-accent="orange" aria-label="Tema Oranye" title="Oranye"></button>
+                    <button class="accent-btn red-dot" data-accent="red" aria-label="Tema Merah" title="Merah"></button>
+                    <button class="accent-btn blue-dot" data-accent="blue" aria-label="Tema Biru" title="Biru"></button>
+                </div>
+
+                <a href="#contact" class="btn-glow-sm" id="hireBtn">
+                    <span>Ayo Kolaborasi</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Buka Navigasi">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero-section" id="hero">
+            <div class="container hero-grid">
+                <!-- Hero Left Column: Narrative & CTA -->
+                <div class="hero-content">
+                    <div class="status-pill floating-element">
+                        <span class="pulse-beacon"></span>
+                        <span class="status-text">Terbuka untuk Kolaborasi & Proyek Kreatif</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Mendobrak <span class="shimmer-text">Gravitasi</span>,<br />
+                        Mengorbitkan <span class="neon-glow-text">Prestasi</span>.
+                    </h1>
+
+                    <div class="typing-container">
+                        <span class="typing-prefix"><i class="fa-solid fa-terminal text-cyan"></i> Spesialisasi: </span>
+                        <span class="typing-text" id="typingText">Creative Web Developer</span>
+                        <span class="typing-cursor">|</span>
+                    </div>
+
+                    <p class="hero-description">
+                        Halo! Saya <strong>Farid / Farrij</strong> — Pelajar & Creative Tech Explorer yang memadukan
+                        keindahan antarmuka dinamis dengan arsitektur komputasi presisi untuk melahirkan solusi digital
+                        yang berdampak nyata.
+                    </p>
+
+                    <div class="hero-cta-group">
+                        <a href="#showcase" class="btn btn-primary magnetic-btn">
+                            <i class="fa-solid fa-rocket"></i>
+                            <span>Jelajahi Karya Terbaik</span>
+                        </a>
+                        <a href="#lab" class="btn btn-secondary magnetic-btn">
+                            <i class="fa-solid fa-flask"></i>
+                            <span>Coba 0-G Interactive Lab</span>
+                        </a>
+                    </div>
+
+                    <!-- Hero Floating Stats HUD -->
+                    <div class="hero-stats glass-panel">
+                        <div class="stat-item">
+                            <div class="stat-icon-wrap cyan"><i class="fa-solid fa-cubes"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-val-group">
+                                    <span class="stat-number" data-target="15">0</span>
+                                    <span class="stat-plus">+</span>
+                                </div>
+                                <span class="stat-label">Proyek Selesai</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-divider"></div>
+
+                        <div class="stat-item">
+                            <div class="stat-icon-wrap purple"><i class="fa-solid fa-code-commit"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-val-group">
+                                    <span class="stat-number" data-target="1.5">0</span>
+                                    <span class="stat-plus">+</span>
+                                </div>
+                                <span class="stat-label">Tahun Eksplorasi</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-divider"></div>
+
+                        <div class="stat-item">
+                            <div class="stat-icon-wrap emerald"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-val-group">
+                                    <span class="stat-number" data-target="100">0</span>
+                                    <span class="stat-plus">%</span>
+                                </div>
+                                <span class="stat-label">Dedikasi Belajar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Column: 3D Holographic Profile Avatar Rig -->
+                <div class="hero-visual">
+                    <div class="gravity-rig" id="gravityRig">
+                        <!-- Central Levitating Avatar Card -->
+                        <div class="avatar-card tilt-card" data-tilt id="avatarCardTrigger"
+                            title="Klik untuk melontarkan efek partikel supernova!">
+                            <div class="avatar-card-glare"></div>
+                            <div class="avatar-wrapper">
+                                <div class="avatar-glow"></div>
+                                <img src="profile.png" alt="Foto Profil Farrij" class="profile-photo-img"
+                                    id="profileImage" />
+                                <div class="avatar-overlay-gradient"></div>
+                                <div class="avatar-status-badge">
+                                    <span class="badge-dot"></span>
+                                    <span>FARRIJ · 0-G OPERATOR</span>
+                                </div>
+                            </div>
+
+                            <div class="avatar-info-pill">
+                                <i class="fa-solid fa-code text-cyan"></i>
+                                <span>Problem Solver & Web Crafter</span>
+                            </div>
+                        </div>
+
+                        <!-- Orbiting Satellites / Floating Tech Badges -->
+                        <div class="orbit-item badge-1 floating-slow" data-tilt>
+                            <i class="fa-brands fa-js text-yellow"></i>
+                            <span>JavaScript ES6+</span>
+                        </div>
+                        <div class="orbit-item badge-2 floating-reverse" data-tilt>
+                            <i class="fa-brands fa-php text-indigo"></i>
+                            <span>PHP & Laravel</span>
+                        </div>
+                        <div class="orbit-item badge-3 floating-medium" data-tilt>
+                            <i class="fa-solid fa-palette text-pink"></i>
+                            <span>UI/UX & Figma</span>
+                        </div>
+                        <div class="orbit-item badge-4 floating-slow" data-tilt>
+                            <i class="fa-brands fa-vuejs text-emerald"></i>
+                            <span>Vue.js Framework</span>
+                        </div>
+
+                        <!-- Orbit Rings Decor -->
+                        <div class="orbit-ring ring-1"></div>
+                        <div class="orbit-ring ring-2"></div>
+                        <div class="orbit-planet planet-1"></div>
+                        <div class="orbit-planet planet-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION (Bento Grid 2.0: Personal Branding) -->
+        <section class="section about-section" id="about">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-badge"><i class="fa-regular fa-compass"></i> Personal Branding</span>
+                    <h2 class="section-title">Wajah di Balik <span class="gradient-text">Karya & Gagasan</span></h2>
+                    <p class="section-subtitle">
+                        Bukan sekadar siswa yang pasif di kelas, melainkan pembelajar aktif yang selalu berani melampaui
+                        batasan standar melalui inovasi teknologi.
+                    </p>
+                </div>
+
+                <!-- Bento Grid Layout -->
+                <div class="bento-grid">
+                    <!-- Bento 1: Main Philosophy Card (Wide) -->
+                    <div class="bento-card bento-wide glass-panel tilt-card" data-tilt>
+                        <div class="bento-icon-box"><i class="fa-solid fa-fingerprint"></i></div>
+                        <div class="bento-body">
+                            <span class="bento-tag">Filosofi & Pendekatan</span>
+                            <h3>Anti-Gravitasi: Berpikir Melampaui Batas</h3>
+                            <p>
+                                Gravitasi menarik semua orang ke dalam pola yang monoton dan kaku. Bagi saya,
+                                <strong>Anti-Gravitasi</strong> adalah filosofi berkarya: berani mengeksplorasi ide
+                                berani, memadukan estetika visual mutakhir dengan logika pemrograman yang kokoh, serta
+                                selalu mengedepankan etika profesionalisme.
+                            </p>
+                            <div class="bento-pillars">
+                                <div class="pillar-chip"><i class="fa-solid fa-check text-cyan"></i> Problem Solving
+                                    Fungsional</div>
+                                <div class="pillar-chip"><i class="fa-solid fa-check text-cyan"></i> Desain Intuitif &
+                                    Interaktif</div>
+                                <div class="pillar-chip"><i class="fa-solid fa-check text-cyan"></i> Clean Code &
+                                    Performa Cepat</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bento 2: Live Time & Status Card -->
+                    <div class="bento-card glass-panel tilt-card" data-tilt>
+                        <div class="bento-icon-box cyan-icon"><i class="fa-solid fa-satellite"></i></div>
+                        <div class="bento-body">
+                            <span class="bento-tag">Live Status & Zona Waktu</span>
+                            <div class="live-clock-wrap">
+                                <div class="clock-display" id="liveClock">00:00:00 WIB</div>
+                                <div class="location-badge" id="bentoLocation"><i class="fa-solid fa-location-dot text-cyan"></i> Indonesia (UTC+7)</div>
+                            </div>
+                            <div class="status-indicator-box">
+                                <span class="radar-ping"></span>
+                                <span class="status-mode-text">Mode: Siap Kolaborasi & Belajar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bento 3: Quick Profile Meta -->
+                    <div class="bento-card glass-panel tilt-card" data-tilt>
+                        <div class="bento-icon-box purple-icon"><i class="fa-solid fa-id-card"></i></div>
+                        <div class="bento-body">
+                            <span class="bento-tag">Identitas Singkat</span>
+                            <ul class="bento-meta-list">
+                                <li>
+                                    <span class="lbl"><i class="fa-regular fa-user"></i> Nama:</span>
+                                    <span class="val">Farid / Farrij</span>
+                                </li>
+                                <li>
+                                    <span class="lbl"><i class="fa-solid fa-graduation-cap"></i> Status:</span>
+                                    <span class="val">Siswa & Tech Explorer</span>
+                                </li>
+                                <li>
+                                    <span class="lbl"><i class="fa-solid fa-bullseye"></i> Fokus:</span>
+                                    <span class="val">Web Engineering & UI/UX</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Bento 4: Competency Radar Meters (Wide) -->
+                    <div class="bento-card bento-wide glass-panel tilt-card" data-tilt>
+                        <div class="bento-icon-box gold-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="bento-body">
+                            <span class="bento-tag">Pilar Keahlian Utama</span>
+                            <h3>Keseimbangan Logika & Estetika</h3>
+
+                            <div class="progress-meters-grid">
+                                <div class="meter-item">
+                                    <div class="meter-header">
+                                        <span>Pemrograman Web & Logika Algoritma</span>
+                                        <span class="meter-percent">94%</span>
+                                    </div>
+                                    <div class="meter-track">
+                                        <div class="meter-fill" style="width: 94%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="meter-item">
+                                    <div class="meter-header">
+                                        <span>Desain Antarmuka (UI/UX) & Interaktivitas</span>
+                                        <span class="meter-percent">90%</span>
+                                    </div>
+                                    <div class="meter-track">
+                                        <div class="meter-fill purple-fill" style="width: 90%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="meter-item">
+                                    <div class="meter-header">
+                                        <span>Manajemen Database & Integrasi API</span>
+                                        <span class="meter-percent">88%</span>
+                                    </div>
+                                    <div class="meter-track">
+                                        <div class="meter-fill gold-fill" style="width: 88%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="meter-item">
+                                    <div class="meter-header">
+                                        <span>Kolaborasi Tim, Komunikasi & Adaptabilitas</span>
+                                        <span class="meter-percent">96%</span>
+                                    </div>
+                                    <div class="meter-track">
+                                        <div class="meter-fill emerald-fill" style="width: 96%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section class="section skills-section" id="skills">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-badge"><i class="fa-solid fa-cubes"></i> Peta Kompetensi</span>
+                    <h2 class="section-title">Keahlian & <span class="gradient-text">Teknologi Pilihan</span></h2>
+                    <p class="section-subtitle">Peralatan, bahasa pemrograman, dan metodologi yang menjadi senjata utama
+                        dalam merealisasikan proyek digital.</p>
+                </div>
+
+                <div class="skills-grid">
+                    <!-- Frontend Card -->
+                    <div class="skill-category-card glass-panel tilt-card" data-tilt>
+                        <div class="cat-header">
+                            <div class="cat-icon cyan-icon"><i class="fa-solid fa-code"></i></div>
+                            <div>
+                                <h4>Frontend Development</h4>
+                                <span>Antarmuka Interaktif & Responsif</span>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-pill"><i class="fa-brands fa-html5 text-orange"></i> HTML5
+                                Semantik</span>
+                            <span class="skill-pill"><i class="fa-brands fa-css3-alt text-cyan"></i> CSS3 & Animasi
+                                3D</span>
+                            <span class="skill-pill"><i class="fa-brands fa-js text-yellow"></i> JavaScript Modern
+                                (ES6+)</span>
+                            <span class="skill-pill"><i class="fa-brands fa-vuejs text-emerald"></i> Vue.js / Single
+                                Page App</span>
+                            <span class="skill-pill"><i class="fa-solid fa-mobile-screen text-pink"></i> Responsive
+                                Layouts</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend Card -->
+                    <div class="skill-category-card glass-panel tilt-card" data-tilt>
+                        <div class="cat-header">
+                            <div class="cat-icon purple-icon"><i class="fa-solid fa-server"></i></div>
+                            <div>
+                                <h4>Backend & Arsitektur</h4>
+                                <span>Manajemen Data & Logika Server</span>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-pill"><i class="fa-brands fa-php text-indigo"></i> PHP 8+ & Laravel
+                                MVC</span>
+                            <span class="skill-pill"><i class="fa-solid fa-database text-cyan"></i> MySQL & Relational
+                                DB</span>
+                            <span class="skill-pill"><i class="fa-solid fa-network-wired text-gold"></i> RESTful API
+                                Design</span>
+                            <span class="skill-pill"><i class="fa-brands fa-git-alt text-orange"></i> Git & GitHub
+                                Workflow</span>
+                        </div>
+                    </div>
+
+                    <!-- Design Card -->
+                    <div class="skill-category-card glass-panel tilt-card" data-tilt>
+                        <div class="cat-header">
+                            <div class="cat-icon pink-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <div>
+                                <h4>Desain Visual & UI/UX</h4>
+                                <span>Pengalaman Pengguna & Estetika</span>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-pill"><i class="fa-brands fa-figma text-purple"></i> Figma
+                                Prototyping</span>
+                            <span class="skill-pill"><i class="fa-solid fa-palette text-cyan"></i> Design System &
+                                Tokens</span>
+                            <span class="skill-pill"><i class="fa-solid fa-sparkles text-pink"></i>
+                                Micro-Interactions</span>
+                            <span class="skill-pill"><i class="fa-solid fa-eye text-gold"></i> Visual
+                                Accessibility</span>
+                        </div>
+                    </div>
+
+                    <!-- Soft Skills Card -->
+                    <div class="skill-category-card glass-panel tilt-card" data-tilt>
+                        <div class="cat-header">
+                            <div class="cat-icon gold-icon"><i class="fa-solid fa-users"></i></div>
+                            <div>
+                                <h4>Karakter & Kolaborasi</h4>
+                                <span>Manajemen Diri & Kepemimpinan</span>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-pill"><i class="fa-solid fa-comments text-cyan"></i> Komunikasi
+                                Asertif</span>
+                            <span class="skill-pill"><i class="fa-solid fa-people-group text-emerald"></i> Kolaborasi
+                                Tim</span>
+                            <span class="skill-pill"><i class="fa-solid fa-bolt text-gold"></i> Belajar Mandiri
+                                Cepat</span>
+                            <span class="skill-pill"><i class="fa-solid fa-clock text-yellow"></i> Manajemen
+                                Prioritas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION (The Gravity-Defying Showcase) -->
+        <section class="section showcase-section" id="showcase">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-badge"><i class="fa-solid fa-rocket"></i> Gravity-Defying Showcase</span>
+                    <h2 class="section-title">Karya & <span class="gradient-text">Studi Kasus Nyata</span></h2>
+                    <p class="section-subtitle">
+                        Setiap karya disusun dengan alur naratif terstruktur: <strong>Tantangan (Gravitasi)</strong>
+                        &rarr; <strong>Solusi (Daya Angkat)</strong> &rarr; <strong>Dampak (Orbit)</strong>.
+                    </p>
+
+                    <!-- Project Filter -->
+                    <div class="filter-bar" id="projectFilter">
+                        <button class="filter-btn active" data-filter="all"><i class="fa-solid fa-layer-group"></i>
+                            Semua Proyek</button>
+                        <button class="filter-btn" data-filter="web"><i class="fa-solid fa-code"></i> Web
+                            Application</button>
+                        <button class="filter-btn" data-filter="design"><i class="fa-solid fa-palette"></i> UI/UX
+                            Design</button>
+                        <button class="filter-btn" data-filter="creative"><i class="fa-solid fa-microchip"></i> Sistem &
+                            Solusi</button>
+                    </div>
+                </div>
+
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Project 1: TugasFRQ -->
+                    <article class="project-card glass-panel tilt-card" data-category="web" data-tilt>
+                        <!-- Browser Mockup Header -->
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="browser-address-bar">
+                                <i class="fa-solid fa-lock text-cyan"></i> https://tugasfrq.farrij.dev
+                            </div>
+                        </div>
+
+                        <div class="project-preview">
+                            <div class="project-art-canvas art-1">
+                                <div class="art-floating-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                                <div class="art-grid-lines"></div>
+                                <div class="art-glow-orb"></div>
+                            </div>
+                            <div class="project-badge">Web Application · Featured</div>
+                        </div>
+
+                        <div class="project-body">
+                            <h3 class="project-title">TugasFRQ — Portal Manajemen Postingan & Interaksi Pelajar</h3>
+                            <p class="project-summary">Platform web interaktif berbasis arsitektur fullstack dengan
+                                autentikasi berjenjang, manajemen konten tugas CRUD terintegrasi, dan responsivitas
+                                instan.</p>
+
+                            <!-- Story Flow -->
+                            <div class="case-study-flow">
+                                <div class="flow-step">
+                                    <div class="flow-marker red"><i class="fa-solid fa-weight-hanging"></i></div>
+                                    <div class="flow-text">
+                                        <strong>Tantangan (The Gravity):</strong> Siswa kesulitan mengorganisir arsip
+                                        tugas sekolah, dan platform lama lambat diakses dari ponsel.
+                                    </div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="flow-marker blue"><i class="fa-solid fa-rocket"></i></div>
+                                    <div class="flow-text">
+                                        <strong>Solusi (The Lift):</strong> Merancang arsitektur MVC Laravel dengan
+                                        integrasi frontend reaktif Vue/Inertia untuk navigasi tanpa *reload*.
+                                    </div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="flow-marker green"><i class="fa-solid fa-circle-check"></i></div>
+                                    <div class="flow-text">
+                                        <strong>Dampak (The Orbit):</strong> Mengurangi latensi navigasi hingga 65% dan
+                                        menciptakan repositori tugas yang rapi dan terverifikasi.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-footer">
+                                <div class="tech-stack-pills">
+                                    <span>PHP</span>
+                                    <span>Laravel</span>
+                                    <span>Vue.js</span>
+                                    <span>MySQL</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="https://farij14525-a11y.github.io/Portofolio_farrij3/" target="_blank" rel="noopener" class="icon-link" title="Lihat Demo Live">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                    <a href="https://github.com/farij14525-a11y/Portofolio_farrij3" target="_blank" rel="noopener" class="icon-link" title="Lihat Repository">
+                                        <i class="fa-brands fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 2: EduGravity UI/UX -->
+                    <article class="project-card glass-panel tilt-card" data-category="design" data-tilt>
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="browser-address-bar">
+                                <i class="fa-solid fa-lock text-cyan"></i> https://edugravity.design
+                            </div>
+                        </div>
+
+                        <div class="project-preview">
+                            <div class="project-art-canvas art-2">
+                                <div class="art-floating-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                <div class="art-grid-lines"></div>
+                                <div class="art-glow-orb purple"></div>
+                            </div>
+                            <div class="project-badge">UI/UX Design Concept</div>
+                        </div>
+
+                        <div class="project-body">
+                            <h3 class="project-title">EduGravity — Konsep Aplikasi Belajar Interaktif 3D</h3>
+                            <p class="project-summary">Desain prototipe antarmuka sistem belajar masa depan dengan
+                                elemen visual mikrogravitasi, sistem reward gamifikasi, dan alur navigasi intuitif.</p>
+
+                            <div class="case-study-flow">
+                                <div class="flow-step">
+                                    <div class="flow-marker red"><i class="fa-solid fa-weight-hanging"></i></div>
+                                    <div class="flow-text">
+                                        <strong>Tantangan (The Gravity):</strong> Format antarmuka aplikasi belajar
+                                        konvensional kaku dan memicu kejenuhan siswa dalam jangka panjang.
+                                    </div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="flow-marker blue"><i class="fa-solid fa-rocket"></i></div>
+                                    <div class="flow-text">
+                                        <strong>Solusi (The Lift):</strong> Menerapkan konsep *Dark Mode Holographic*,
+                                        navigasi berbasis kartu angkasa, dan mikro-animasi pencapaian tugas.
+                                    </div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="flow-marker green"><i class="fa-solid fa-circle-check"></i></div>
+                                    <div class="flow-text">
+                                        <strong>Dampak (The Orbit):</strong> Meraih skor *usability testing* 92/100 dan
+                                        mendapat apresiasi tinggi dalam evaluasi desain interaktif.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-footer">
+                                <div class="tech-stack-pills">
+                                    <span>Figma</span>
+                                    <span>Design System</span>
+                                    <span>Micro-Interactions</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="#showcase" class="icon-link" title="Buka Prototipe"><i
+                                            class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    <a href="#showcase" class="icon-link" title="Dribbble Showcase"><i
+                                            class="fa-brands fa-figma"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ZERO-G INTERACTIVE LAB & TERMINAL SIMULATOR SECTION (NEW WOW FACTOR) -->
+        <section class="section lab-section" id="lab">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-badge"><i class="fa-solid fa-flask"></i> 0-G Interactive Lab</span>
+                    <h2 class="section-title">Eksperimen <span class="gradient-text">Fisika & Terminal Interaktif</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Ubah level gravitasi ruang semesta ini secara langsung atau gunakan terminal simulator untuk
+                        mengeksplorasi modul sistem.
+                    </p>
+                </div>
+
+                <div class="lab-grid">
+                    <!-- Gravity Simulator Controller -->
+                    <div class="lab-card glass-panel tilt-card" data-tilt>
+                        <div class="lab-card-header">
+                            <div class="lab-icon cyan"><i class="fa-solid fa-sliders"></i></div>
+                            <div>
+                                <h3>Pengontrol Fisika Gravitasi</h3>
+                                <p>Pilih mode gravitasi untuk memanipulasi kecepatan partikel:</p>
+                            </div>
+                        </div>
+
+                        <div class="gravity-modes-grid">
+                            <button class="gravity-btn active" data-gravity="zero">
+                                <i class="fa-solid fa-feather-pointed"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Zero-G (0.0 G)</span>
+                                    <span class="g-desc">Melayang Bebas Melawan Gravitasi</span>
+                                </div>
+                            </button>
+
+                            <button class="gravity-btn" data-gravity="moon">
+                                <i class="fa-solid fa-moon"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Moon Mode (0.16 G)</span>
+                                    <span class="g-desc">Gerakan Halus &amp; Mengambang Lambat</span>
+                                </div>
+                            </button>
+
+                            <button class="gravity-btn" data-gravity="warp">
+                                <i class="fa-solid fa-bolt text-yellow"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Hyper Warp (Warp Speed)</span>
+                                    <span class="g-desc">Akselerasi Kecepatan Cahaya</span>
+                                </div>
+                            </button>
+
+                            <button class="gravity-btn" data-gravity="inverted">
+                                <i class="fa-solid fa-arrows-up-down text-pink"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Inverted Vortex</span>
+                                    <span class="g-desc">Pusaran Partikel Sentrifugal</span>
+                                </div>
+                            </button>
+
+                            <button class="gravity-btn" data-gravity="nebula">
+                                <i class="fa-solid fa-cloud text-purple"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Nebula Drift</span>
+                                    <span class="g-desc">Melayang Seperti Awan Antarbintang</span>
+                                </div>
+                            </button>
+
+                            <button class="gravity-btn" data-gravity="galaxy">
+                                <i class="fa-solid fa-atom text-purple"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Galaxy Spiral</span>
+                                    <span class="g-desc">Partikel Membentuk Pola Galaksi</span>
+                                </div>
+                            </button>
+
+                            <button class="gravity-btn" data-gravity="aurora">
+                                <i class="fa-solid fa-wave-square text-green"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Aurora Wave</span>
+                                    <span class="g-desc">Gelombang Cahaya Kutub Utara</span>
+                                </div>
+                            </button>
+
+                            <button class="gravity-btn" data-gravity="solar">
+                                <i class="fa-solid fa-sun text-yellow"></i>
+                                <div class="g-info">
+                                    <span class="g-name">Solar Storm</span>
+                                    <span class="g-desc">Badai Partikel Matahari</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="gravity-status-indicator">
+                            <span class="radar-ping"></span>
+                            <span id="gravityStatusText">Gravitasi Aktif: 0.0 G (Anti-Gravity Protocol)</span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive CLI Terminal Simulator -->
+                    <div class="lab-card terminal-card glass-panel">
+                        <div class="terminal-bar-top">
+                            <div class="browser-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="term-title"><i class="fa-solid fa-terminal text-cyan"></i>
+                                farrij@antigravity-core:~</span>
+                        </div>
+
+                        <div class="terminal-screen" id="terminalScreen">
+                            <div class="term-line output">Selamat datang di <strong>Farrij Terminal V2.4</strong>!</div>
+                            <div class="term-line output text-dim">Ketik <span class="cmd-chip">help</span> untuk daftar
+                                perintah, atau <span class="cmd-chip">skills</span>, <span
+                                    class="cmd-chip">projects</span>, <span class="cmd-chip">supernova</span>.</div>
+                            <div class="term-history" id="termHistory"></div>
+
+                            <div class="term-input-row">
+                                <span class="term-prompt">farrij@zero-g:~$</span>
+                                <input type="text" class="term-input" id="termInput"
+                                    placeholder="Ketik perintah di sini (contoh: help)..." autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VAULT OF ACHIEVEMENTS SECTION (Prestasi) -->
+        <section class="section vault-section" id="vault">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-badge"><i class="fa-solid fa-award"></i> The Vault of Achievements</span>
+                    <h2 class="section-title">Rekam Jejak & <span class="gradient-text">Sertifikat Prestasi</span></h2>
+                    <p class="section-subtitle">
+                        Bukan sekadar kertas pajangan, melainkan bukti otentik komitmen peningkatan kompetensi dan
+                        integritas akademik.
+                    </p>
+                </div>
+
+                <div class="certs-grid" id="certsGrid">
+                    <!-- Kartu Sertifikat 1: Kelulusan Pembelajaran -->
+                    <div class="cert-card glass-panel tilt-card" data-tilt>
+                        <!-- Top Bar Ala Terminal / Sci-Fi Window -->
+                        <div class="cert-top-bar">
+                            <div class="browser-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="cert-bar-title"><i class="fa-solid fa-graduation-cap text-cyan"></i> vault://hummatech/kelulusan-java</span>
+                            <span class="cert-bar-badge"><span class="radar-ping-sm"></span> RESMI</span>
+                        </div>
+
+                        <!-- Card Header Info -->
+                        <div class="cert-card-header">
+                            <div class="lab-icon cyan">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div class="cert-header-titles">
+                                <h3>Sertifikat Kelulusan Pembelajaran</h3>
+                                <p>Kelas Industri PT Humma Teknologi Indonesia · Semester Ganjil 2025/2026</p>
+                            </div>
+                        </div>
+
+                        <!-- Showcase Foto Sertifikat (Kompak, Sedikit Mengecil & Enak Dipandang) -->
+                        <div class="cert-showcase-box" onclick="openCertModal('assets/certificates/sertifikat-kelulusan-java.jpg', 'Sertifikat Kelulusan Pembelajaran', 'No. 23202512302424 — PT Humma Teknologi Indonesia')" title="Klik untuk memperbesar sertifikat">
+                            <div class="cert-img-frame">
+                                <img src="assets/certificates/sertifikat-kelulusan-java.jpg" alt="Sertifikat Kelulusan Pembelajaran - Farrij Irham Azhiman" loading="lazy" class="cert-framed-img" />
+                                <div class="cert-hover-hint">
+                                    <span class="hint-badge"><i class="fa-solid fa-magnifying-glass-plus"></i> Klik untuk Perbesar</span>
+                                </div>
+                            </div>
+                            <div class="cert-corner-tag">
+                                <i class="fa-solid fa-circle-check text-emerald"></i>
+                                <span>Predikat "Kompeten"</span>
+                            </div>
+                        </div>
+
+                        <!-- Rincian Data Kredensial (Grid Rapi & Elegan seperti tombol di screenshot) -->
+                        <div class="cert-specs-grid">
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-fingerprint text-cyan"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">No. Registrasi</span>
+                                    <strong class="spec-val">23202512302424</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item active-glow">
+                                <i class="fa-solid fa-award text-emerald"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Predikat Kelulusan</span>
+                                    <strong class="spec-val text-emerald">"Kompeten" (Lulus)</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-brands fa-java text-orange"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Tema Pelatihan</span>
+                                    <strong class="spec-val">Pemrograman Java</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-calendar-check text-gold"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Tanggal Terbit</span>
+                                    <strong class="spec-val">30 Desember 2025</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-building text-cyan"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Penyelenggara</span>
+                                    <strong class="spec-val">PT Humma Teknologi</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-signature text-purple"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Penandatangan</span>
+                                    <strong class="spec-val">Afrizal Himawan S.Kom</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="cert-footer-actions">
+                            <button type="button" class="btn-cert-primary" onclick="openCertModal('assets/certificates/sertifikat-kelulusan-java.jpg', 'Sertifikat Kelulusan Pembelajaran', 'No. 23202512302424 — PT Humma Teknologi Indonesia')">
+                                <i class="fa-solid fa-expand"></i> Pratinjau Resolusi Penuh
+                            </button>
+                            <a href="assets/certificates/sertifikat-kelulusan-java.jpg" target="_blank" rel="noopener noreferrer" class="btn-cert-secondary" title="Buka Gambar Asli di Tab Baru">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Gambar
+                            </a>
+                        </div>
+
+                        <!-- Status Bar Bawah Ala Screenshot (Gravitasi Aktif Style) -->
+                        <div class="cert-bottom-status">
+                            <span class="radar-ping"></span>
+                            <span>Status: Kurikulum Industri Tuntas & Terverifikasi</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Sertifikat 2: Ujian Kompetensi -->
+                    <div class="cert-card glass-panel tilt-card" data-tilt>
+                        <!-- Top Bar Ala Terminal / Sci-Fi Window -->
+                        <div class="cert-top-bar">
+                            <div class="browser-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="cert-bar-title"><i class="fa-solid fa-award text-gold"></i> vault://hummatech/uji-kompetensi-java</span>
+                            <span class="cert-bar-badge gold"><span class="radar-ping-sm"></span> TERUJI</span>
+                        </div>
+
+                        <!-- Card Header Info -->
+                        <div class="cert-card-header">
+                            <div class="lab-icon gold">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <div class="cert-header-titles">
+                                <h3>Sertifikat Ujian Kompetensi</h3>
+                                <p>Kelas Industri PT Humma Teknologi Indonesia · Semester Ganjil 2025/2026</p>
+                            </div>
+                        </div>
+
+                        <!-- Showcase Foto Sertifikat (Kompak, Sedikit Mengecil & Enak Dipandang) -->
+                        <div class="cert-showcase-box" onclick="openCertModal('assets/certificates/sertifikat-kompetensi-java.jpg', 'Sertifikat Uji Kompetensi', 'No. 23202512302342 — PT Humma Teknologi Indonesia')" title="Klik untuk memperbesar sertifikat">
+                            <div class="cert-img-frame">
+                                <img src="assets/certificates/sertifikat-kompetensi-java.jpg" alt="Sertifikat Ujian Kompetensi - Farrij Irham Azhiman" loading="lazy" class="cert-framed-img" />
+                                <div class="cert-hover-hint">
+                                    <span class="hint-badge"><i class="fa-solid fa-magnifying-glass-plus"></i> Klik untuk Perbesar</span>
+                                </div>
+                            </div>
+                            <div class="cert-corner-tag">
+                                <i class="fa-solid fa-circle-check text-emerald"></i>
+                                <span>Predikat "Kompeten"</span>
+                            </div>
+                        </div>
+
+                        <!-- Rincian Data Kredensial (Grid Rapi & Elegan seperti tombol di screenshot) -->
+                        <div class="cert-specs-grid">
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-fingerprint text-cyan"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">No. Registrasi</span>
+                                    <strong class="spec-val">23202512302342</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item active-glow">
+                                <i class="fa-solid fa-award text-emerald"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Hasil Evaluasi Ujian</span>
+                                    <strong class="spec-val text-emerald">"Kompeten" (Lulus Ujian)</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-brands fa-java text-orange"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Materi Ujian Praktik</span>
+                                    <strong class="spec-val">Pemrograman Java</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-calendar-check text-gold"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Tanggal Terbit</span>
+                                    <strong class="spec-val">30 Desember 2025</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-building text-cyan"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Lembaga Penilai</span>
+                                    <strong class="spec-val">PT Humma Teknologi</strong>
+                                </div>
+                            </div>
+
+                            <div class="cert-spec-item">
+                                <i class="fa-solid fa-signature text-purple"></i>
+                                <div class="spec-data">
+                                    <span class="spec-lbl">Penguji / Direktur</span>
+                                    <strong class="spec-val">Afrizal Himawan S.Kom</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="cert-footer-actions">
+                            <button type="button" class="btn-cert-primary" onclick="openCertModal('assets/certificates/sertifikat-kompetensi-java.jpg', 'Sertifikat Uji Kompetensi', 'No. 23202512302342 — PT Humma Teknologi Indonesia')">
+                                <i class="fa-solid fa-expand"></i> Pratinjau Resolusi Penuh
+                            </button>
+                            <a href="assets/certificates/sertifikat-kompetensi-java.jpg" target="_blank" rel="noopener noreferrer" class="btn-cert-secondary" title="Buka Gambar Asli di Tab Baru">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Gambar
+                            </a>
+                        </div>
+
+                        <!-- Status Bar Bawah Ala Screenshot (Gravitasi Aktif Style) -->
+                        <div class="cert-bottom-status">
+                            <span class="radar-ping"></span>
+                            <span>Status: Standar Uji Kompetensi Terpenuhi & Sah</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vault Verification Guarantee Banner -->
+                <div class="vault-verification-footer glass-panel">
+                    <div class="v-verif-icon"><i class="fa-solid fa-shield-halved text-cyan"></i></div>
+                    <div class="v-verif-text">
+                        <h4>Otentikasi Kredensial Resmi PT Humma Teknologi Indonesia</h4>
+                        <p>Dokumen sertifikasi di atas merupakan bukti valid kelulusan program dan uji kompetensi pemrograman fundamental Java Semester Ganjil 2025/2026 atas nama <strong>Farrij Irham Azhiman</strong>.</p>
+                    </div>
+                    <div class="v-verif-badge">
+                        <i class="fa-solid fa-circle-check text-emerald"></i> VALID & RESMI
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOURNEY & MILESTONES TIMELINE -->
+        <section class="section journey-section" id="journey">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-badge"><i class="fa-solid fa-timeline"></i> Garis Waktu</span>
+                    <h2 class="section-title">Jejak Langkah & <span class="gradient-text">Milestone Belajar</span></h2>
+                    <p class="section-subtitle">Perjalanan evolusi keterampilan dan pencapaian dari awal hingga fase
+                        terkini.</p>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-track"></div>
+
+                    <!-- Item 1: Fase Terkini -->
+                    <div class="timeline-item">
+                        <div class="timeline-node"><i class="fa-solid fa-rocket"></i></div>
+                        <div class="timeline-content glass-panel tilt-card" data-tilt>
+                            <div class="timeline-header-row">
+                                <span class="timeline-year"><i class="fa-regular fa-calendar-check"></i> Fase Terkini
+                                    (2026)</span>
+                                <span class="timeline-status-tag">Sedang Berjalan</span>
+                            </div>
+                            <h4>Eksplorasi Fullstack Web & UI/UX Lanjutan</h4>
+                            <p>Mendalami rekayasa web modern berbasis arsitektur framework (Laravel & Vue), eksplorasi
+                                desain micro-interactions, dan perancangan portofolio berstandar industri profesional.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Fase Awal -->
+                    <div class="timeline-item">
+                        <div class="timeline-node"><i class="fa-solid fa-seedling"></i></div>
+                        <div class="timeline-content glass-panel tilt-card" data-tilt>
+                            <div class="timeline-header-row">
+                                <span class="timeline-year"><i class="fa-regular fa-calendar-days"></i> Fase Awal</span>
+                                <span class="timeline-status-tag completed">Fondasi Selesai</span>
+                            </div>
+                            <h4>Fondasi Pemrograman & Logika Komputasi</h4>
+                            <p>Mengawali langkah dalam dunia teknologi dengan mendalami dasar algoritma komputer,
+                                struktur HTML5 semantik, CSS layout responsif, dan logika JavaScript murni.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="section contact-section" id="contact">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-badge"><i class="fa-regular fa-paper-plane"></i> Terhubung</span>
+                    <h2 class="section-title">Mari Berdiskusi & <span class="gradient-text">Berkolaborasi</span></h2>
+                    <p class="section-subtitle">
+                        Tertarik membangun proyek bersama, berdiskusi mengenai teknologi web, atau menawarkan
+                        kolaborasi? Pintu komunikasi selalu terbuka lebar!
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Direct Channels Card -->
+                    <div class="contact-card glass-panel tilt-card" data-tilt>
+                        <div class="contact-card-header">
+                            <div class="contact-header-icon"><i class="fa-solid fa-address-book"></i></div>
+                            <div>
+                                <h3>Saluran Komunikasi Langsung</h3>
+                                <p>Klik untuk menghubungi atau menyalin informasi:</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-methods">
+                            <!-- Email Box with Click to Copy -->
+                            <div class="method-item" id="copyEmailBox" title="Klik untuk Salin Alamat Email">
+                                <div class="method-icon"><i class="fa-solid fa-envelope"></i></div>
+                                <div class="method-details">
+                                    <span class="method-title">Email Resmi</span>
+                                    <span class="method-value" id="emailText">contact.farrij@gmail.com</span>
+                                </div>
+                                <button class="copy-btn" id="copyEmailBtn" aria-label="Salin Email">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                            </div>
+
+                            <!-- WhatsApp Box -->
+                            <div class="method-item" onclick="window.open('https://wa.me/628873812755?text=Halo%20Farid,%20saya%20melihat%20portofolio%20Anda!', '_blank')" style="cursor: pointer;" title="Buka WhatsApp Chat">
+                                <div class="method-icon green-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                                <div class="method-details">
+                                    <span class="method-title">WhatsApp Chat</span>
+                                    <span class="method-value">+62 887-3812-755</span>
+                                </div>
+                                <a href="https://wa.me/628873812755?text=Halo%20Farid,%20saya%20melihat%20portofolio%20Anda!" target="_blank" rel="noopener" class="external-btn"
+                                    aria-label="Buka WhatsApp" onclick="event.stopPropagation()">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Contact Form -->
+                    <div class="contact-card glass-panel tilt-card" data-tilt>
+                        <div class="contact-card-header">
+                            <div class="contact-header-icon purple-icon"><i class="fa-solid fa-envelope-open-text"></i>
+                            </div>
+                            <div>
+                                <h3>Kirim Pesan Instan</h3>
+                                <p>Kirimkan gagasan atau pertanyaan Anda secara langsung:</p>
+                            </div>
+                        </div>
+
+                        <form id="contactForm" class="contact-form" onsubmit="handleFormSubmit(event)">
+                            <div class="form-group">
+                                <label for="senderName"><i class="fa-regular fa-user"></i> Nama Lengkap /
+                                    Instansi</label>
+                                <input type="text" id="senderName" name="Nama Pengirim" class="form-control"
+                                    placeholder="Contoh: Bpk. Guru / Rekan Siswa" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="senderEmail"><i class="fa-regular fa-envelope"></i> Email Kontak</label>
+                                <input type="email" id="senderEmail" name="email" class="form-control" placeholder="nama@domain.com"
+                                    required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="senderMessage"><i class="fa-regular fa-comment-dots"></i> Pesan / Topik
+                                    Kolaborasi</label>
+                                <textarea id="senderMessage" name="Isi Pesan" class="form-control" rows="4"
+                                    placeholder="Tuliskan pesan atau ide kolaborasi Anda di sini..."
+                                    required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full magnetic-btn" id="submitMsgBtn">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Pesan Sekarang
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <div class="brand-logo">
+                    <span class="logo-orb"><i class="fa-solid fa-atom"></i></span>
+                    <span class="logo-text">FARRIJ<span class="highlight">.PSH</span></span>
+                </div>
+                <p class="footer-tagline">Portofolio Pelajar Berkonsep Anti-Gravitasi & Eksplorasi Digital Kreatif.</p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Farid / Farrij. Dibuat dengan presisi kode & dedikasi tanpa batas gravitasi.</p>
+                <div class="footer-badge-pill">
+                    <span class="pulse-beacon"></span>
+                    <span>System Online · All Gravity Defied</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING BACK TO TOP ROCKET BUTTON -->
+    <button class="back-to-top" id="backToTopBtn" aria-label="Meluncur ke Atas">
+        <i class="fa-solid fa-rocket"></i>
+    </button>
+
+    <!-- FLOATING COSMIC MUSIC PLAYER DOCK -->
+    <div class="music-player-dock glass-panel" id="musicPlayerDock">
+        <!-- Vinyl Disc Graphic -->
+        <div class="vinyl-disc-wrap" id="vinylDiscWrap">
+            <div class="vinyl-disc" id="vinylDisc">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-center" id="vinylCenter">
+                    <i class="fa-solid fa-music text-cyan"></i>
+                </div>
+            </div>
+            <div class="vinyl-equalizer-bars" id="equalizerBars">
+                <span class="bar b1"></span>
+                <span class="bar b2"></span>
+                <span class="bar b3"></span>
+                <span class="bar b4"></span>
+            </div>
+        </div>
+
+        <!-- Track Information & Controls -->
+        <div class="player-main-info">
+            <div class="player-title-row">
+                <div class="track-title-marquee">
+                    <span class="track-title" id="trackTitle">Pilih Musik Anda</span>
+                    <span class="track-artist" id="trackArtist">Belum ada lagu diputar</span>
+                </div>
+                <div class="dock-actions-row">
+                    <a href="#" target="_blank" rel="noopener" class="btn-spotify-shortcut" id="dockExternalLink"
+                        title="Buka Tautan Eksternal" style="display: none;"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <button class="btn-playlist-toggle" id="playlistToggleBtn" title="Buka Daftar Playlist Lagu">
+                        <i class="fa-solid fa-list-ul"></i>
+                        <span class="playlist-count-badge" id="playlistCountBadge">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scrubber Progress Bar -->
+            <div class="player-progress-container" id="playerProgressContainer">
+                <div class="player-progress-bar" id="playerProgressBar"></div>
+            </div>
+
+            <!-- Player Controls Row -->
+            <div class="player-controls-row">
+                <span class="time-display" id="currentTime">0:00</span>
+
+                <div class="ctrl-buttons-group">
+                    <button class="ctrl-btn" id="prevTrackBtn" title="Lagu Sebelumnya"><i
+                            class="fa-solid fa-backward-step"></i></button>
+                    <button class="ctrl-btn play-btn" id="playPauseBtn" title="Putar / Jeda"><i class="fa-solid fa-play"
+                            id="playIcon"></i></button>
+                    <button class="ctrl-btn" id="nextTrackBtn" title="Lagu Selanjutnya"><i
+                            class="fa-solid fa-forward-step"></i></button>
+                </div>
+
+                <div class="volume-widget-wrap">
+                    <button class="ctrl-btn" id="volBtn" title="Pengaturan Volume"><i class="fa-solid fa-volume-high"
+                            id="volIcon"></i></button>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05"
+                        value="0.75" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAYLIST DRAWER POPUP -->
+    <div class="playlist-drawer-overlay" id="playlistDrawerOverlay" onclick="handlePlaylistOutsideClick(event)">
+        <div class="playlist-drawer glass-panel">
+            <div class="playlist-drawer-header">
+                <div class="drawer-title-group">
+                    <i class="fa-solid fa-compact-disc text-cyan"></i>
+                    <div>
+                        <h3>Cosmic Soundstation</h3>
+                        <p>Daftar Putar Musik & Audio Portofolio</p>
+                    </div>
+                </div>
+                <button class="drawer-close-btn" onclick="togglePlaylistDrawer()" aria-label="Tutup Playlist">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Active YouTube Video Audio Stream Embed (Guaranteed Sound) -->
+            <div class="youtube-player-screen" id="ytScreenContainer">
+                <iframe id="ytPlayerIframe"
+                    src="https://www.youtube-nocookie.com/embed/pXP88QMTxdA?enablejsapi=1&autoplay=0&controls=1&playsinline=1"
+                    title="Cosmic Music Player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="playlist-items-list" id="playlistItemsList">
+                <!-- Playlist items injected dynamically via JS -->
+            </div>
+
+            <div class="playlist-drawer-footer">
+                <label for="customAudioUpload" class="btn-custom-upload"
+                    title="Pilih file lagu (.mp3 / .wav / .m4a) dari komputermu">
+                    <i class="fa-solid fa-file-audio text-cyan"></i>
+                    <span>Tambah File Musik Sendiri (.mp3 / audio)</span>
+                </label>
+                <input type="file" id="customAudioUpload" accept="audio/*" multiple style="display: none;"
+                    onchange="handleCustomAudioUpload(event)" />
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML5 Audio Engine & Hidden YouTube Audio Streamer -->
+    <audio id="bgAudio" preload="auto"></audio>
+    <div id="ytMusicPlayerContainer" style="position: fixed; bottom: 0; right: 0; width: 1px; height: 1px; opacity: 0.01; pointer-events: none; z-index: -1;">
+        <div id="ytMusicPlayer"></div>
+    </div>
+
+    <!-- CERTIFICATE LIGHTBOX PREVIEW MODAL -->
+    <div class="cert-modal-backdrop" id="certModalBackdrop" onclick="handleCertModalBackdrop(event)" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+        <div class="cert-modal-dialog glass-panel">
+            <div class="cert-modal-header">
+                <div class="cert-modal-title-wrap">
+                    <div class="cert-modal-badge-icon"><i class="fa-solid fa-award text-cyan"></i></div>
+                    <div>
+                        <h3 id="certModalTitle">Sertifikat Resmi</h3>
+                        <p id="certModalSubtitle">PT Humma Teknologi Indonesia</p>
+                    </div>
+                </div>
+                <div class="cert-modal-controls">
+                    <a id="certModalDownload" href="#" target="_blank" rel="noopener noreferrer" class="cert-modal-action-btn" title="Buka Gambar Resolusi Asli di Tab Baru">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span>Buka Asli</span>
+                    </a>
+                    <button type="button" class="cert-modal-close-btn" onclick="closeCertModal()" aria-label="Tutup Preview Sertifikat">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="cert-modal-body">
+                <div class="cert-modal-img-container">
+                    <img id="certModalImage" src="" alt="Pratinjau Sertifikat Prestasi" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toastNotification">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span class="toast-message" id="toastMessage">Email berhasil disalin ke clipboard!</span>
+    </div>
+
+    <!-- RADAR GPS CALIBRATION MODAL -->
+    <div class="radar-modal-backdrop" id="radarModalBackdrop" onclick="if(event.target === this) closeRadarGpsModal()" role="dialog" aria-modal="true" aria-labelledby="radarModalTitle">
+        <div class="radar-modal-dialog glass-panel">
+            <div class="radar-modal-header">
+                <div class="radar-modal-icon-glow">
+                    <i class="fa-solid fa-satellite-dish"></i>
+                </div>
+                <div class="radar-modal-header-text">
+                    <h3 id="radarModalTitle">Kalibrasi Radar Presisi Tinggi</h3>
+                    <p class="radar-modal-subtitle">Sinkronisasi Chip Satelit GPS & Sensor Fisik</p>
+                </div>
+                <button type="button" class="radar-modal-close" onclick="closeRadarGpsModal()" aria-label="Tutup Modal">&times;</button>
+            </div>
+            <div class="radar-modal-body">
+                <div class="radar-explain-card">
+                    <div class="radar-status-row">
+                        <span class="radar-badge-status warning"><i class="fa-solid fa-tower-broadcast"></i> Status Saat Ini: Estimasi Gateway ISP</span>
+                    </div>
+                    <p class="radar-explain-text">
+                        Lokasi yang terbaca saat ini merupakan <strong>server pusat ISP provider internet</strong> Anda (sering kali berpusat di Surabaya, Banyuwangi, atau Jakarta) dengan radius ±20–50 km.
+                    </p>
+                    <p class="radar-explain-text">
+                        Untuk mengunci <strong>titik koordinat eksak jalan/rumah Anda hingga radius meteran (±5–15m)</strong>, klik tombol di bawah untuk mengaktifkan sensor satelit GPS / Wi-Fi perangkat Anda.
+                    </p>
+                </div>
+
+                <div class="radar-action-box">
+                    <button type="button" class="btn-activate-gps" id="btnStartGpsCalibration" onclick="executeGpsCalibrationFromModal()">
+                        <i class="fa-solid fa-satellite"></i> Izinkan & Kunci GPS Satelit
+                    </button>
+                    <p class="radar-privacy-note">
+                        <i class="fa-solid fa-shield-halved"></i> Data koordinat digunakan secara real-time untuk telemetri portofolio & peta interaktif Farrij.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UA-Parser.js: Deteksi device, browser, OS secara akurat -->
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.38/src/ua-parser.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="script.js?v=7"></script>
+</body>
+
+</html>

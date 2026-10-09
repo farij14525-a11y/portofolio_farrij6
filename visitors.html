@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar Telemetri Pengunjung | Zero-G Control Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #080b11;
+            --card-bg: rgba(16, 22, 36, 0.75);
+            --border-glow: rgba(0, 240, 255, 0.2);
+            --cyan: #00f0ff;
+            --purple: #9d4edd;
+            --green: #10b981;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            padding: 30px 20px;
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-glow);
+        }
+        .title-group h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .title-group p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+        .btn-refresh {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-refresh:hover {
+            background: var(--cyan);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 18px;
+            backdrop-filter: blur(10px);
+        }
+        .stat-card span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .stat-card strong {
+            display: block;
+            font-size: 1.8rem;
+            margin-top: 5px;
+            color: var(--cyan);
+        }
+        .table-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        th {
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tr:hover td {
+            background: rgba(0, 240, 255, 0.03);
+        }
+        .ip-badge {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: var(--cyan);
+            font-size: 0.88rem;
+        }
+        .loc-badge {
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .maps-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--green);
+            color: var(--green);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .maps-btn:hover {
+            background: var(--green);
+            color: #000;
+        }
+        .time-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+        .ua-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .filter-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .filter-tab.active {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+        .filter-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="title-group">
+                <h1><i class="fa-solid fa-satellite-dish" style="color: var(--cyan);"></i> Radar Telemetri Pengunjung</h1>
+                <p>Log pelacakan real-time siapa pun yang membuka portofolio</p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn-refresh" id="btnTestGps" onclick="testMyGps()" style="background:rgba(16,185,129,0.15); border-color:#10b981; color:#34d399;">
+                    <i class="fa-solid fa-crosshairs"></i> Uji Akurasi GPS Saya
+                </button>
+                <button class="btn-refresh" onclick="loadLogs()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+                <a href="index.html" class="btn-refresh"><i class="fa-solid fa-arrow-left"></i> Portofolio</a>
+            </div>
+        </header>
+
+        <!-- INFO CARD: EDUKASI TEKNIS PERBEDAAN GPS VS IP -->
+        <div style="background:rgba(16,24,39,0.8); border:1px solid rgba(0,240,255,0.25); border-radius:12px; padding:16px 20px; margin-bottom:24px; font-size:0.86rem; line-height:1.55; backdrop-filter:blur(10px);">
+            <div style="display:flex; align-items:center; gap:8px; font-weight:700; color:#00f0ff; margin-bottom:6px; font-size:0.92rem;">
+                <i class="fa-solid fa-circle-info"></i> Panduan Akurasi Pelacakan Lokasi:
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin-top:8px;">
+                <div style="background:rgba(0,0,0,0.3); padding:10px 14px; border-radius:8px; border-left:3px solid #10b981;">
+                    <strong style="color:#34d399;"><i class="fa-solid fa-satellite"></i> GPS Hardware Satelit (Hijau):</strong>
+                    <div style="color:#cbd5e1; font-size:0.82rem; margin-top:3px;">
+                        Akurasi <strong>±5–15 meter (tingkat jalan & rumah riil)</strong>. Diperoleh saat pengunjung mengizinkan sensor GPS di peramban via HTTPS atau localhost.
+                    </div>
+                </div>
+                <div style="background:rgba(0,0,0,0.3); padding:10px 14px; border-radius:8px; border-left:3px solid #00f0ff;">
+                    <strong style="color:#00f0ff;"><i class="fa-solid fa-tower-broadcast"></i> Estimasi Jaringan ISP (Biru):</strong>
+                    <div style="color:#cbd5e1; font-size:0.82rem; margin-top:3px;">
+                        Akurasi <strong>radius kota / server ISP (±20–50 km)</strong>. Provider seluler/IndiHome merutekan IP dinamis ke pusat gateway (sering terbaca Surabaya/Jakarta).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <span>Total Kunjungan Terlacak</span>
+                <strong id="statTotal">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Pengunjung Unik (IP)</span>
+                <strong id="statUnique">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Satelit GPS Eksak Terkunci</span>
+                <strong id="statGpsCount" style="color:#10b981;">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Kota Terakhir</span>
+                <strong id="statLastCity" style="font-size:1.3rem;">-</strong>
+            </div>
+        </div>
+
+        <!-- FILTER TABS -->
+        <div style="display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap;">
+            <button class="filter-tab active" id="tabFilterAll" onclick="setFilter('all')">Semua Kunjungan (<span id="countFilterAll">0</span>)</button>
+            <button class="filter-tab" id="tabFilterGps" onclick="setFilter('gps')"><i class="fa-solid fa-satellite" style="color:#10b981;"></i> GPS Eksak Saja (<span id="countFilterGps">0</span>)</button>
+            <button class="filter-tab" id="tabFilterIp" onclick="setFilter('ip')"><i class="fa-solid fa-tower-broadcast" style="color:#00f0ff;"></i> Estimasi ISP Saja (<span id="countFilterIp">0</span>)</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Waktu (WIB)</th>
+                        <th>IP Address</th>
+                        <th>Metode & Lokasi Terdeteksi</th>
+                        <th>Titik Koordinat</th>
+                        <th>Spesifikasi Device Lengkap</th>
+                        <th>ISP / Jaringan</th>
+                        <th>Peta Lokasi</th>
+                    </tr>
+                </thead>
+                <tbody id="logTableBody">
+                    <tr><td colspan="7" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data pelacakan...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let _allLogs = [];
+        let _currentFilter = 'all';
+
+        function setFilter(filterType) {
+            _currentFilter = filterType;
+            document.querySelectorAll('.filter-tab').forEach(btn => btn.classList.remove('active'));
+            if (filterType === 'all') document.getElementById('tabFilterAll').classList.add('active');
+            else if (filterType === 'gps') document.getElementById('tabFilterGps').classList.add('active');
+            else if (filterType === 'ip') document.getElementById('tabFilterIp').classList.add('active');
+            renderTableRows();
+        }
+
+        async function loadLogs() {
+            const tbody = document.getElementById('logTableBody');
+            try {
+                const res = await fetch('visitors_log.json?t=' + Date.now());
+                if (!res.ok) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Belum ada pengunjung yang terlacak, atau file log belum dibuat. Buka halaman utama portofolio untuk merekam kunjungan pertama!</td></tr>';
+                    return;
+                }
+                const logs = await res.json();
+                if (!Array.isArray(logs) || logs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Belum ada kunjungan yang tercatat.</td></tr>';
+                    return;
+                }
+
+                _allLogs = logs;
+
+                // Stats
+                document.getElementById('statTotal').textContent = logs.length;
+                const uniqueIps = new Set(logs.map(l => l.ip)).size;
+                document.getElementById('statUnique').textContent = uniqueIps;
+                
+                const gpsCount = logs.filter(l => Boolean(l.is_gps)).length;
+                const ipCount = logs.length - gpsCount;
+                document.getElementById('statGpsCount').textContent = gpsCount;
+                document.getElementById('countFilterAll').textContent = logs.length;
+                document.getElementById('countFilterGps').textContent = gpsCount;
+                document.getElementById('countFilterIp').textContent = ipCount;
+
+                document.getElementById('statLastCity').textContent = logs[0].city || logs[0].location || '-';
+
+                renderTableRows();
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state" style="color:#ef4444;"><i class="fa-solid fa-circle-exclamation"></i> Gagal memuat log. Pastikan server lokal Apache/PHP Laragon sedang aktif!</td></tr>';
+            }
+        }
+
+        function renderTableRows() {
+            const tbody = document.getElementById('logTableBody');
+            let filtered = _allLogs;
+            if (_currentFilter === 'gps') {
+                filtered = _allLogs.filter(l => Boolean(l.is_gps));
+            } else if (_currentFilter === 'ip') {
+                filtered = _allLogs.filter(l => !l.is_gps);
+            }
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="empty-state">Tidak ada data untuk filter "${_currentFilter === 'gps' ? 'GPS Eksak Saja' : 'Estimasi ISP'}".</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(item => {
+                const coordsDisplay = item.coords || (item.latitude && item.longitude ? `${item.latitude}, ${item.longitude}` : '-');
+                const devModel = item.device_model || item.device_type || 'Perangkat Terdeteksi';
+                const devOs = item.os || 'OS Unknown';
+                const devBrowser = item.browser || '';
+                const devCpu = item.cpu ? `🧠 ${item.cpu}` : '';
+                const devRam = item.ram ? `💾 ${item.ram}` : '';
+                const devGpu = item.gpu && item.gpu !== 'N/A' && item.gpu !== 'Tidak Diketahui' ? `🎮 ${item.gpu}` : '';
+                const devBattery = item.battery && item.battery !== 'N/A' ? `🔋 ${item.battery}` : '';
+                const devScreen = item.screen && item.screen !== '-' ? `🖥️ ${item.screen}` : '';
+
+                return `
+                <tr>
+                    <td class="time-tag">${item.timestamp || '-'}</td>
+                    <td><span class="ip-badge">${item.ip || 'Unknown'}</span></td>
+                    <td>
+                        <div class="loc-badge">
+                            <i class="fa-solid fa-${item.is_gps ? 'satellite' : 'tower-broadcast'}" style="color:${item.is_gps ? '#10b981' : '#00f0ff'};"></i>
+                            <span style="font-weight:${item.is_gps ? '700' : '500'};">${item.location || '-'}</span>
+                        </div>
+                        <div style="margin-top:4px;">
+                            ${item.is_gps 
+                                ? `<span style="background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-size:0.72rem; padding:2px 7px; border-radius:4px; font-weight:700;"><i class="fa-solid fa-satellite"></i> GPS SATELIT (Akurasi: ${item.accuracy || '±5m'})</span>` 
+                                : `<span style="background:rgba(0,240,255,0.08); color:#7dd3fc; border:1px solid rgba(0,240,255,0.2); font-size:0.7rem; padding:2px 6px; border-radius:4px;"><i class="fa-solid fa-tower-broadcast"></i> Estimasi Jaringan ISP (Gateway Server)</span>`}
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-family:'Fira Code',monospace; font-size:0.83rem; color:${item.is_gps ? '#10b981' : '#00f0ff'}; background:rgba(0,0,0,0.45); padding:4px 8px; border-radius:6px; border:1px dashed ${item.is_gps ? 'rgba(16,185,129,0.5)' : 'rgba(0,240,255,0.25)'}; display:inline-block;">
+                            <i class="fa-solid fa-crosshairs" style="margin-right:4px;"></i>${coordsDisplay}
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-size:0.85rem; line-height:1.45;">
+                            <div style="font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
+                                <i class="fa-solid fa-${devModel.toLowerCase().includes('phone') ? 'mobile-screen-button' : 'laptop'}" style="color:#00f0ff;"></i>
+                                <span>${devModel}</span>
+                                <span style="background:rgba(255,255,255,0.08); padding:1px 6px; border-radius:4px; font-size:0.75rem; color:#94a3b8;">${devOs}</span>
+                            </div>
+                            ${devBrowser ? `<div style="color:#94a3b8; font-size:0.78rem;">🌐 ${devBrowser}</div>` : ''}
+                            <div style="color:#cbd5e1; font-size:0.76rem; margin-top:3px; display:flex; flex-wrap:wrap; gap:8px;">
+                                ${devCpu ? `<span>${devCpu}</span>` : ''}
+                                ${devRam ? `<span>${devRam}</span>` : ''}
+                                ${devBattery ? `<span>${devBattery}</span>` : ''}
+                            </div>
+                            ${devGpu ? `<div style="color:#64748b; font-size:0.73rem; margin-top:2px; max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${item.gpu}">${devGpu}</div>` : ''}
+                            ${devScreen ? `<div style="color:#64748b; font-size:0.73rem;">${devScreen}</div>` : ''}
+                        </div>
+                    </td>
+                    <td style="color:#cbd5e1; font-size:0.88rem;">
+                        <div style="font-weight:600;">${item.isp || '-'}</div>
+                        ${item.network && item.network !== 'N/A' ? `<div style="color:#94a3b8; font-size:0.75rem;">📶 ${item.network}</div>` : ''}
+                    </td>
+                    <td>
+                        ${item.maps_link && item.maps_link !== '-' 
+                            ? `<a href="${item.maps_link}" target="_blank" class="maps-btn" style="${item.is_gps ? 'background:rgba(16,185,129,0.25); font-weight:700; border-color:#10b981;' : ''}"><i class="fa-solid fa-map-location-dot"></i> ${item.is_gps ? 'Peta GPS Satelit' : 'Peta Perkiraan'}</a>` 
+                            : '<span style="color:#64748b; font-size:0.8rem;">Tidak ada koordinat</span>'}
+                    </td>
+                </tr>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Uji Coba Langsung Sensor GPS dari Dashboard Ini
+         */
+        async function testMyGps() {
+            const btn = document.getElementById('btnTestGps');
+            const isSecure = window.isSecureContext || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            
+            if (!isSecure) {
+                const targetUrl = 'http://localhost/portofolio_farrij/visitors.html';
+                const confirmSwitch = confirm('Browser membatasi sensor GPS satelit karena halaman ini dibuka pada protokol HTTP (.test).\n\nIngin beralih ke: ' + targetUrl + ' sekarang agar sensor GPS dapat aktif?');
+                if (confirmSwitch) {
+                    window.location.href = targetUrl;
+                    return;
+                }
+            }
+
+            if (!('geolocation' in navigator)) {
+                alert('Browser Anda tidak mendukung sensor Geolocation API.');
+                return;
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghubungi Satelit GPS...';
+            btn.disabled = true;
+
+            navigator.geolocation.getCurrentPosition(
+                async (pos) => {
+                    const { latitude, longitude, accuracy } = pos.coords;
+                    const accuracyMeter = Math.round(accuracy);
+                    
+                    let address = `Koordinat Eksak: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+                    let exactCity = '';
+                    let exactLocality = '';
+
+                    try {
+                        const bdc = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=id`);
+                        if (bdc.ok) {
+                            const bdcJson = await bdc.json();
+                            exactCity = bdcJson.city || '';
+                            exactLocality = bdcJson.locality || '';
+                            const parts = [exactLocality, exactCity, bdcJson.principalSubdivision].filter(Boolean);
+                            if (parts.length) address = parts.join(', ');
+                        }
+                    } catch (e) {}
+
+                    const payload = {
+                        is_gps: true,
+                        accuracy: accuracyMeter,
+                        latitude: latitude,
+                        longitude: longitude,
+                        coords: `${latitude}, ${longitude}`,
+                        city: exactCity || 'Indonesia',
+                        locality: exactLocality,
+                        full_address: `${address} (±${accuracyMeter}m)`,
+                        device_type: 'Perangkat Penguji',
+                        device_model: 'Uji Mandiri Dashboard',
+                        screen: `${window.innerWidth}x${window.innerHeight}`
+                    };
+
+                    await fetch('track_visitor.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    btn.innerHTML = '<i class="fa-solid fa-check" style="color:#10b981;"></i> GPS Berhasil Terkunci!';
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fa-solid fa-crosshairs"></i> Uji Akurasi GPS Saya';
+                        btn.disabled = false;
+                    }, 3000);
+
+                    alert(`🎯 Satelit GPS Berhasil Terkunci!\n\n📍 Lokasi: ${address}\n📌 Koordinat: ${latitude}, ${longitude}\n🎯 Akurasi: ±${accuracyMeter} meter\n\nLog telah diperbarui di tabel!`);
+                    loadLogs();
+                },
+                (err) => {
+                    btn.innerHTML = '<i class="fa-solid fa-crosshairs"></i> Uji Akurasi GPS Saya';
+                    btn.disabled = false;
+                    alert(`Gagal mengakses GPS: ${err.message}\n\nPastikan izin lokasi (Location) diizinkan di browser Anda dan Location Services diaktifkan di Windows.`);
+                },
+                { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+            );
+        }
+
+        loadLogs();
+        setInterval(loadLogs, 10000);
+    </script>
+</body>
+</html>
